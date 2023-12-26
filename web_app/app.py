@@ -54,6 +54,7 @@ def survey(sId=None):
     if check_session() == False:
         return redirect(url_for("login"))
     if not sId:
+        user = user_data()
         if request.method == 'POST':
             survey_link = request.form.get('survey-link')
             if len(survey_link) > 8:
@@ -65,7 +66,8 @@ def survey(sId=None):
                 survey_form = json.loads(survey.form)
                 return render_template('survey.html',
                                     survey=survey,
-                                    survey_form=survey_form)
+                                    survey_form=survey_form,
+                                    user=user)
             except NoResultFound:
                 return redirect('/')
         if request.method == 'GET':
@@ -74,13 +76,16 @@ def survey(sId=None):
             survey_form = json.loads(survey.form)
             return render_template('survey.html',
                                 survey=survey,
-                                survey_form=survey_form)
+                                survey_form=survey_form,
+                                user=user)
     else:
         survey = store.find_survey_id(id=sId)
         survey_form = json.loads(survey.form)
+        user = user_data()
         return render_template('survey.html',
                             survey=survey,
-                            survey_form=survey_form)
+                            survey_form=survey_form,
+                            user=user)
 
 
 @app.route('/response/<sId>', methods=['POST'], strict_slashes=False)
@@ -145,7 +150,7 @@ def create_survey():
                             title=title,
                             description=desc,
                             form=json.dumps(forms))
-        # new_survey.save()
+        new_survey.save()
         return render_template('generate_link.html',
                                id=new_survey.id,
                                link=f'http://0.0.0.0:5000/survey/{new_survey.id}')
