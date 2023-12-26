@@ -5,13 +5,13 @@
     color: #fff;
     font-weight: bold;
     padding: 10px 20px;
-    z-index: 1;
+    z-index: 2;
 }
 
 .header a {
     text-decoration: none;
     color: #05396b;
-    margin-left: 4%;
+    padding-left: 50px;
     font-weight: bold;
 }
 
@@ -20,6 +20,15 @@ header #baseicon {
     padding-left: 5px;
     width: 40px;
     height: 40px;
+}
+
+.header #show, 
+.header #close {
+    display: None;
+    position: absolute;
+    right: 2%;
+    height: 40px;
+    width: 40px;
 }
 
 nav {
@@ -46,4 +55,51 @@ nav a:hover {
     height: 100%;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
+}
+
+
+/* 
+/* Responsive layout */
+/*
+*/
+
+@media screen and (max-width: 1000px) {
+    .header {
+        height: 45px;
+    }
+
+    nav {
+        display: none;
+        position: absolute;
+        top: 50px;
+        flex-direction: column;
+        height: 200px;
+        width: 100vw;
+        text-align: center;
+        right: 0%;
+        opacity: 0;
+    }
+
+    nav a {
+        padding: 5px 0px;
+    }
+
+    nav a:hover {
+        height: 30px;
+        width: 80vw;
+        border-radius: 5px;
+    }
+
+    .header #show {
+        display: block;
+    }
+
+    .header #show:hover,
+    .header #close:hover {
+        opacity: 0.7;        
+    }
+
+    .header h1 {
+        position: absolute;
+    }
 }

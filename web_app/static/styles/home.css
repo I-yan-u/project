@@ -41,6 +41,7 @@
     width: 70vw;
     left: 14.5%;
     margin: 10px auto;
+    z-index: 1;
 }
 
 .index_banner input[type="submit"] {
@@ -64,6 +65,7 @@
     padding: 10px;
     border: 2px solid #fff;
     border-radius: 5px;
+
 }
 
 .index_banner img {
@@ -71,6 +73,7 @@
     top: 70px;
     left: -80px;
     opacity: 0.2;
+    z-index: 0;
 }
 
 
@@ -131,4 +134,65 @@
 
 .index_create .div_right img:hover {
     transform: scale(1.12);
+}
+
+
+/* 
+/* Responsive layout */
+/*
+*/
+
+@media screen and (max-width: 1000px) {
+    .index_banner form {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0%;
+        margin-bottom: 20px;
+    }
+
+    .index_banner h1 {
+        font-weight: bold;
+    }
+
+    .index_banner input[type="text"],
+    .index_banner input[type="submit"] {
+        padding-left: 0%;
+        margin-bottom: 20px;
+    }
+
+    .index_banner input[type="text"] {
+        width: 250px;
+    }
+
+    .index_banner input[type="submit"] {
+        padding: 0px 10px;
+        width: fit-content;
+    }
+
+    .index_banner img {
+        opacity: 0.1;
+        top: 100px;
+    }
+
+    .index_create {
+        flex-direction: column;
+    }
+    .index_create .div_left {
+        width: 100vw;
+        text-align: center;
+        padding-left: 0%;
+    }
+
+    .index_create .div_left p {
+        width: 100vw;
+    }
+
+    .index_create .div_left button {
+        left: 0%;
+    }
+
+    .index_create .div_right {
+        display: none;
+    }
 }
