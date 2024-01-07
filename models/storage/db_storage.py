@@ -53,6 +53,17 @@ class Storage:
         if obj is not None:
             self.__session.delete(obj)
 
+    def all(self, cls=None):
+        """query on the current database session"""
+        new_dict = {}
+        for clss in classes:
+            if cls is None or cls is classes[clss] or cls is clss:
+                objs = self.__session.query(classes[clss]).all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj
+        return (new_dict)
+
     def reload(self):
         """reloads data from the database"""
         Base.metadata.create_all(self.__engine)
@@ -78,6 +89,39 @@ class Storage:
             raise NoResultFound('No survey found')
         return survey
     
+    def find_response(self, creators_id, s_id):
+        """ Find response with creators id and survey id"""
+        survey = self.__session.query(Survey).filter_by(
+            id=s_id
+        ).first()
+        print(survey)
+        if not survey:
+            raise NoResultFound('No survey found')
+        if survey.creators_id != creators_id:
+            raise InvalidRequestError('You are not the creator')
+        response = self.__session.query(Response).filter_by(
+            survey_id=survey.id
+        ).all()
+        if not response:
+            raise NoResultFound('No response found')
+        temp = []
+        for res in response:
+            temp.append(res.to_dict())
+        return temp
+    
+    def find_unique_response(self, creators_id, s_id, r_id):
+        """ Find particular response by RID """
+        try:
+            responses = self.find_response(creators_id, s_id)
+        except NoResultFound:
+            raise NoResultFound('No response found')
+        except InvalidRequestError:
+            raise InvalidRequestError('You are not the creator')
+        for res in responses:
+            if res.get('id') == r_id:
+                return res
+        return None
+
     def update_user(self, user_id, **kwargs):
         """ update user by given attributes """
         try:
