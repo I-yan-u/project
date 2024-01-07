@@ -48,7 +48,7 @@ class BaseModel:
     
     def __repr__(self):
         """Complex representation of the object """
-        return "({}) - [{}]".format(self.__class__.__name__, self.__dict__)
+        return "({}) - [{}]".format(self.__class__.__name__, self.to_dict())
     
     def save(self):
         """ saves the object"""
