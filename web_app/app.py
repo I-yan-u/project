@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from flask import make_response, session, flash
+from flask import make_response, session, flash, jsonify
 import json
 import re
 import ast
@@ -14,6 +14,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 auth = Auth()
 app = Flask(__name__)
+app.secret_key = 'surveyapp-2023-alx-cohort11'
 
 
 @app.teardown_appcontext
@@ -108,6 +109,18 @@ def response(sId):
     return render_template('thank_you.html', user=user)
 
 
+@app.route('/responses/', methods=['GET'], strict_slashes=False)
+def responses():
+    if check_session() == False:
+        return redirect(url_for("login"))
+    user = user_data()
+    if user.creator == False:
+        logout()
+        flash('Sign Up as a creator!')
+        return redirect(url_for('login'))
+    return render_template('responses.html', user=user)
+
+
 @app.route('/create_survey', methods=['GET','POST'], strict_slashes=False)
 def create_survey():
     session_id = request.cookies.get('session_id')
@@ -115,7 +128,9 @@ def create_survey():
     if not check_session():
         return redirect(url_for('login'))
     if not user.creator:
-        return redirect('/')
+        logout()
+        flash('Sign Up as a creator!')
+        return redirect('/login')
     if request.method == 'GET':
         return render_template('create_survey.html', user=user)
     if request.method == 'POST':
@@ -130,20 +145,32 @@ def create_survey():
             if k.startswith(f'Question-{count}'):
                 count += 1
                 v = v.replace('\r\n', ', ')
-                print(v)
-                match = re.match(r'question: (.+), choices: (.+)', v)
+
+                # Get the option type.
+                re_pattern = r'text:|radio:|choices:|checkbox:|date:|password:|range:'
+                option_type = re.search(re_pattern, v)
+                if option_type:
+                    option = option_type.group().strip(':')
+                else:
+                    return "Invalid Input"
+
+                #  Extract the matching string.
+                match_pattern = rf"question: (.+), {re.escape(option)}: (.+)"
+                match = re.match(match_pattern, v)
 
                 if match:
                     question = match.group(1).strip()
                     choices_str = match.group(2).strip()
-                    print(choices_str, type(choices_str))
                     try:
-                        choices_list = ast.literal_eval(choices_str)
-                        if choices_list is None:
-                            choices_list = []
+                        options = ast.literal_eval(choices_str)
+                        if options is None:
+                            options = []
                     except Exception as e:
-                        choices_list = []
-                    to_dict = {'question': question, 'choices': choices_list}
+                        options = choices_str
+
+                    if option == 'range':
+                        options = options.split('to')
+                    to_dict = {'question': question, f'{option}': options}
                     print(to_dict)
                     forms.append(to_dict)
         new_survey = Survey(creators_id=user.id,
@@ -154,7 +181,6 @@ def create_survey():
         return render_template('generate_link.html',
                                id=new_survey.id,
                                link=f'http://0.0.0.0:5000/survey/{new_survey.id}')
-        # return f'Link to survey: http://0.0.0.0:5000/survey/{new_survey.id}'
 
 
 @app.route('/about', methods=['GET'], strict_slashes=False)
@@ -183,6 +209,7 @@ def login():
             response = make_response(redirect("/"))
             response.set_cookie('session_id', session_id)
             return response
+        flash('Invalid Email or Password')
         return render_template("login.html")
     else:
         session_id = request.cookies.get('session_id')
@@ -190,7 +217,7 @@ def login():
         if user:
             return redirect(url_for('index'))
         else:
-            return render_template('login.html')
+            return render_template('login.html', unsuccessful=True)
 
 
 @app.route('/signup', methods=['GET', 'POST'], strict_slashes=False)
@@ -220,7 +247,8 @@ def logout():
         return redirect('/login')
     else:
         auth.destroy_session(user.id)
-        return redirect('/')
+        return redirect('/login')
+
 
 if __name__ == '__main__':
     port = 5000
