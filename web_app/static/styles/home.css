@@ -2,7 +2,31 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    overflow-x: visible;
 }
+
+/* Animation */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes moveImg {
+    0% {top: 70px; left: -80px;}
+    25% {top: 100px; left: -90px;}
+    50% {top: 60px; left: -70px;}
+    75% {top: 75px; left: -85px;}
+    100% {top: 70px; left: -80px;}
+}
+
+@keyframes moveImg1000 {
+    0% {top: 100px; left: -80px;}
+    25% {top: 110px; left: -90px;}
+    50% {top: 90px; left: -70px;}
+    75% {top: 105px; left: -85px;}
+    100% {top: 100px; left: -80px;}
+}
+
 
 
 /*
@@ -12,12 +36,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100vw;
     height: 80vh;
     text-align: center;
     flex-direction: column;
     color: #fff;
     font-weight: bold;
     background-color: #5cdb95;
+    animation: fadeIn;
+    animation-duration: 2s;
 }
 
 .text-container {
@@ -74,6 +101,10 @@
     left: -80px;
     opacity: 0.2;
     z-index: 0;
+    animation: moveImg;
+    animation-duration: 3s;
+    animation-delay: -1s;
+    animation-timing-function: ease-out;
 }
 
 
@@ -143,6 +174,10 @@
 */
 
 @media screen and (max-width: 1000px) {
+    .index_banner{
+        width: 100vw;
+    }
+
     .index_banner form {
         flex-direction: column;
         align-items: center;
@@ -155,14 +190,19 @@
         font-weight: bold;
     }
 
+    .index_banner h1,
+    .index_banner .para {
+        width: 85%;
+    }
+
     .index_banner input[type="text"],
     .index_banner input[type="submit"] {
         padding-left: 0%;
-        margin-bottom: 20px;
+        margin-bottom: 5px;
     }
 
     .index_banner input[type="text"] {
-        width: 250px;
+        width: 300px;
     }
 
     .index_banner input[type="submit"] {
@@ -173,6 +213,10 @@
     .index_banner img {
         opacity: 0.1;
         top: 100px;
+        animation: moveImg1000;
+        animation-duration: 3s;
+        animation-delay: -1s;
+        animation-timing-function: ease-out;
     }
 
     .index_create {

@@ -171,7 +171,7 @@ input[type="radio"]:checked + .radio-dot {
 .signup_body input[type="submit"] {
     width: 100%;
     padding: 10px 10px;
-    margin: 0px 10px;
+    /* margin: 0px 10px; */
     background-color: #05396b;
     border: #05396b;
     border-radius: 5px;
@@ -182,6 +182,17 @@ input[type="radio"]:checked + .radio-dot {
 .signup_body input[type="submit"]:hover {
     background-color: #053a6ba7;
     color: #A3E7D9;
+}
+
+#invalid_tag {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    text-align: center;
+    width: 100vw;
+    color: #fff;
+    background-color: #379683;
+    border: 1px solid #379683;
 }
 
 

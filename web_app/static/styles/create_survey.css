@@ -66,6 +66,7 @@
     color: #05396b;
     margin: 20px 10vw;
     margin-bottom: 150px;
+    z-index: 2;
 }
 
 .survey_container .title_desc2,
@@ -85,7 +86,7 @@
 
 .survey_container .title_desc2 label,
 .survey_container .questions label {
-    font-weight: bold;
+    font-weight: bolder;
     margin: 15px 0px 5px;
 }
 
@@ -146,6 +147,10 @@
     position: relative;
     top: 50px;
     left: -8vw;
+}
+
+.survey_container input[type="submit"]:hover {
+    opacity: 0.7;
 }
 
 /* .survey_container #show_how {

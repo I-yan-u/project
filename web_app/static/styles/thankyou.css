@@ -131,3 +131,35 @@
     height: 30px;
     padding: 10px 80px 10px 10px;
 }
+
+
+@media screen and (max-width: 1000px) {
+    .thank_you_content {
+        flex-direction: column;
+        height: 150vh;
+    }
+
+    .thank_you_content .div_left,
+    .thank_you_content .div_right  {
+        width: 100vw;
+        height: 15vh;
+        justify-content: center;
+        align-items: center;
+        /* padding: ; */
+    }
+
+    .thank_you_content .div_left p, 
+    .thank_you_content .div_right p {
+        margin: 0px 50px 0px 5px;
+        text-align: center;
+    }
+
+    .thank_you_content .div_left button,
+    .thank_you_content .div_right button {
+        left: 0px;
+        margin: 0vw 0vw 0vw 35vw;
+        width: fit-content;
+        align-items: center;
+    }
+
+}
