@@ -108,3 +108,150 @@ input[type="radio"]:checked + .radio-dot {
     opacity: 0.2;
     z-index: -1;
 }
+
+@media screen and (max-width: 1000px) {
+    .survey button[type="submit"] {
+        width: fit-content;
+    }
+
+    .survey {
+        margin-bottom: 30vh;
+    }
+}
+
+
+
+/* Response page */
+
+.response {
+    height: 150vh;
+    width: 100vw;
+}
+
+.response .response_search {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100vh;
+    width: 100vw;
+    background-color: #05386b;
+    color: #fff;
+    text-align: left;
+    justify-content: center;
+}
+
+.response_search h2 {
+    font-size: 40px;
+    margin: 5px;
+    margin-left: 5vw;
+}
+
+.response_search input {
+    width: 20vw;
+    height: 5vh;
+    padding: 5px;
+    border: 1px #04325e;
+    border-radius: 5px;
+    margin: 10px;
+    margin-left: 5vw;
+}
+
+.response_search button {
+    width: 10vw;
+    height: 30px;
+    padding: 5px;
+    background-color: #389583;
+    border: 1px #04325e;
+    border-radius: 5px;
+    margin: 0 10px 10px;
+    margin-left: 5vw;
+}
+
+.response table {
+    width: 90vw;
+    margin: 20px 5vw;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.response table #survey_title {
+    background-color: #3f5263;
+    color: #fff;
+}
+
+tr, th, td {
+    border-bottom: 1px solid #adadad;
+    padding: 15px;
+}
+
+tr:hover {background-color: #D6EEEE;}
+
+.pager {
+    margin: 10px 5vw;
+    display: inline-block;
+}
+
+.pager a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    transition: background-color .5s;
+}
+
+.pager a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+.pager a.active {
+    background-color: #05386b;
+    color: white;
+  }
+
+  .pager a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  
+  .pager a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .modal {
+    display: none;
+    z-index: 2;
+    height: 70vh;
+    width: 50vw;
+    background-color: #151c22;
+    border-radius: 10px;
+    position: fixed;
+    top: 15vh;
+    left: 25vw;
+    opacity: 0;
+  }
+
+  .modal .insert {
+    margin: 10px;
+  }
+
+  .modal .insert p {
+    color: #fff;
+}
+.modal .insert p span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modal .insert #answer {
+    font-size: 14px;
+}
+
+  .modal #close {
+    position: absolute;
+    bottom: 15px;
+    text-decoration: none;
+    left: 48%;
+    color: #fff;
+  }
