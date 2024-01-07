@@ -2,9 +2,10 @@
 {% block title %}Log In{% endblock %}
 {% block content %}
 <div class="login">
-    <h3><b>Log In</b></h3>
+    
     <img id="baseicon1" src="{{ url_for('static', filename='images/survey.svg') }}">
     <article class="login_body">
+        <h3><b>Log In</b></h3>
         <form action="/login" method="post">
             <input type="email" id="login_email" name="email" placeholder="exprecn@something.com" required><br><br>
             <div class="pass">
