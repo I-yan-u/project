@@ -1,0 +1,5 @@
+survey
+test*
+*pycache*
+id.json
+.gitignore
