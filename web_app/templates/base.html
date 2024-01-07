@@ -19,7 +19,9 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="{{ url_for('static', filename='scripts/create_survey.js') }}"></script>
         <script src="{{ url_for('static', filename='scripts/thank_you.js') }}"></script>
-        <script src="{{ url_for('static', filename='scripts/base.js') }}"></script>
+        <script type='module' src="{{ url_for('static', filename='scripts/base.js') }}"></script>
+        <script src="{{ url_for('static', filename='scripts/auth_page.js') }}"></script>
+        <!-- <script type="module" src="{{ url_for('static', filename='scripts/auth.js') }}"></script> -->
     </head>
     <body>
         <header class="header">
@@ -28,14 +30,15 @@
             <img src="{{ url_for('static', filename='images/3lines.png') }}" id="show"> 
             <img src="{{ url_for('static', filename='images/close.png') }}" id="close"> 
             <nav class="nav">
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-                <a href="/create_survey">Create survey</a>
+                <a id="home" href="/">Home</a>
+                <a id="about" href="/about">About</a>
+                <a id="create_survey" href="/create_survey">Create survey</a>
                 {% if user %}
-                    <a href="/logout">Log Out</a>
+                    <a id="nav_response" href="/responses">Responses</a>
+                    <a id="logout" href="/logout">Log Out</a>
                 {% else %}
-                    <a href="/login">Log In</a>
-                    <a href="/signup">Sign Up</a>
+                    <a id="login" href="/login">Log In</a>
+                    <a id="signup" href="/signup">Sign Up</a>
                 {% endif %}
             </nav>
         </header>

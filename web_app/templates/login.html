@@ -6,11 +6,16 @@
     <img id="baseicon1" src="{{ url_for('static', filename='images/survey.svg') }}">
     <article class="login_body">
         <form action="/login" method="post">
-            <input type="email" name="email" placeholder="exprecn@something.com" required><br><br>
+            <input type="email" id="login_email" name="email" placeholder="exprecn@something.com" required><br><br>
             <div class="pass">
                 <input id="inPass" type="password" name="password" placeholder="Password" required>
             </div><br>
-            <input type="submit" value="Login">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <p id="invalid_tag">*{{ messages[0] }}</p>
+                {% endif %}
+            {% endwith %}
+            <input id="login_submit" type="submit" value="Login">
             <p id="signup">Don't have an account? <a href="{{ url_for('signup') }}">Create one</a></p>
         </form>
     </article>
